@@ -1,16 +1,22 @@
 class Personagem extends Animacao {
-    constructor(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite) {
-        super(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite);
+    constructor(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite) {
+        super(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite);
 
-        this.yInicial = height - this.altura;
+        this.variacaoY = variacaoY;
+        this.yInicial = height - this.altura - this.variacaoY;
         this.y = this.yInicial;
 
         this.velocidadeDoPulo = 0;
-        this.gravidade = 3;
+        this.gravidade = 6;
+        this.alturaDoPulo = -50;
+        this.pulos = 0;
     }
 
     pula() {
-        this.velocidadeDoPulo = - 30;
+        if (this.pulos < 3) {
+            this.velocidadeDoPulo = this.alturaDoPulo;
+            this.pulos++;
+        }
     }
 
     aplicaGravidade() {
@@ -19,6 +25,7 @@ class Personagem extends Animacao {
 
         if (this.y > this.yInicial) {
             this.y = this.yInicial;
+            this.pulos = 0;
         }
     }
 
